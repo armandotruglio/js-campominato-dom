@@ -4,10 +4,14 @@ const resultGrid = document.getElementById('grid');
 const playButton = document.querySelector('button');
 const resultMode = document.getElementById('mode');
 const form = document.querySelector('form');
+const resultScore = document.getElementById('score');
 
+//Creo una variabile per tenere il punteggio
+let score = 0;
 
-form.addEventListener('submit', function(event){
-    event.preventDefault();
+const startGame = () =>{
+    resultGrid.innerHTML = '';
+    playButton.innerText = 'Ricomincia'
 
     //Stabilisco la quantità di quadrati da creare
     const squareNumber = resultMode.value;
@@ -18,14 +22,17 @@ form.addEventListener('submit', function(event){
     
         //Creo il quadrato
         const content = createNode('div', 'square');
-    
-        //Inserisco il numero corrispettivo all'interno
-        content.innerText = num;
 
         //Lo rendo cliccabike
         content.addEventListener('click', function(){
+            //Aumento il punteggio
+            if(content.classList.contains('clicked')){
+                return;
+            }
             console.log(content.innerText);
             content.classList.add('clicked');
+            resultScore.innerText = ++score;
+
         })
 
         //Gli assegno la sua dimensione
@@ -34,4 +41,10 @@ form.addEventListener('submit', function(event){
         //Inserisco il quadrato nel DOM
         resultGrid.appendChild(content);
     }
+}
+
+form.addEventListener('submit', function(event){
+    event.preventDefault();
+
+    startGame();
 })
