@@ -1,0 +1,65 @@
+/* CSS RESET */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+/* Generics */
+header{
+    height: 100px;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main{
+    background-color: #7fffd4;
+    padding: 50px 0;
+}
+
+button{
+    padding: 0 2rem;
+}
+
+/* Utils */
+.container{
+    width: 800px;
+    margin: 0 auto;
+}
+
+/* Grid */
+#grid{
+    height: 500px;
+    width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Squares*/
+.square{
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.square.square-100{
+    flex-basis: calc(100%/10);
+}
+
+.square.square-81{
+    flex-basis: calc(100%/9);
+}
+
+.square.square-49{
+    flex-basis: calc(100%/7);
+}
+
+.square.clicked{
+    background-color: blue;
+    color: white;
+}
