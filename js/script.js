@@ -13,6 +13,20 @@ const endGame = (score, hasWon = false) => {
     alert(`Hai ${result}! Hai totalizzato ${score} punti`);
 }
 
+//Funzione per rivelare le bombe
+const revealCells = (bombs) => {
+    const cells = document.querySelectorAll('.square');
+
+    for(let i = 0; i < cells.length; i++){
+        if(bombs.includes(i+1)){
+            cells[i].classList.add('clicked', 'bomb');
+        }
+        else{
+            cells[i].classList.add('clicked', 'safe');
+        }
+    }
+}
+
 
 //Funzione per generare le bombe
 const generateBombs = (totalCells, totalBombs) => {
@@ -58,7 +72,7 @@ const startGame = () =>{
 
         //Lo rendo cliccabike
         content.addEventListener('click', function(){
-            //Aumento il punteggio
+
             if(isGameOver || content.classList.contains('clicked')){
                 return;
             }
@@ -68,7 +82,8 @@ const startGame = () =>{
             if(bombs.includes(i + 1)){
                 isGameOver = true;
                 content.classList.add('bomb');
-                endGame(score)
+                endGame(score);
+                revealCells(bombs);
             }
             else{
                 content.classList.add('safe');
@@ -76,6 +91,7 @@ const startGame = () =>{
                 if(score === maxScore){
                     isGameOver = true;
                     endGame(score, true);
+                    revealCells(bombs);
                 }
             }
 
