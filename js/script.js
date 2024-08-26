@@ -6,6 +6,14 @@ const resultMode = document.getElementById('mode');
 const form = document.querySelector('form');
 const resultScore = document.getElementById('score');
 
+//Funzione per finire il gioco
+const endGame = (score, hasWon = false) => {
+    const result = hasWon ? 'vinto' : 'perso';
+
+    alert(`Hai ${result}! Hai totalizzato ${score} punti`);
+}
+
+
 //Funzione per generare le bombe
 const generateBombs = (totalCells, totalBombs) => {
     const bombs = [];
@@ -34,6 +42,7 @@ const startGame = () =>{
     //Genero le bombe
     const totalBombs = 16;
     const maxScore = squareNumber - totalBombs;
+    let isGameOver = false;
 
     const bombs = generateBombs(squareNumber, totalBombs);
     console.log(bombs);
@@ -50,19 +59,24 @@ const startGame = () =>{
         //Lo rendo cliccabike
         content.addEventListener('click', function(){
             //Aumento il punteggio
-            if(content.classList.contains('clicked')){
+            if(isGameOver || content.classList.contains('clicked')){
                 return;
             }
             console.log(content.innerText);
             content.classList.add('clicked');
 
             if(bombs.includes(i + 1)){
-                console.log('Hai perso! Hai totalizzato ' + score + ' punti');
+                isGameOver = true;
                 content.classList.add('bomb');
+                endGame(score)
             }
             else{
                 content.classList.add('safe');
                 resultScore.innerText = ++score;
+                if(score === maxScore){
+                    isGameOver = true;
+                    endGame(score, true);
+                }
             }
 
         })
