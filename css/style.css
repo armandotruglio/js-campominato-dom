@@ -60,6 +60,13 @@ button{
 }
 
 .square.clicked{
-    background-color: blue;
     color: white;
+}
+
+.square.clicked.safe{
+    background-color: blue;
+}
+
+.square.clicked.bomb{
+    background-color: red;
 }

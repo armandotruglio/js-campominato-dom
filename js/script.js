@@ -11,7 +11,10 @@ const generateBombs = (totalCells, totalBombs) => {
     const bombs = [];
 
     while(bombs.length < totalBombs){
-        bombs.push(Math.floor(Math.random() * totalCells) + 1);
+        const num = (Math.floor(Math.random() * totalCells) + 1);
+        if(!bombs.includes(num)){
+            bombs.push(num);
+        }
     }
 
     return bombs;
@@ -42,6 +45,8 @@ const startGame = () =>{
         //Creo il quadrato
         const content = createNode('div', 'square');
 
+        content.innerText = num;
+
         //Lo rendo cliccabike
         content.addEventListener('click', function(){
             //Aumento il punteggio
@@ -50,7 +55,15 @@ const startGame = () =>{
             }
             console.log(content.innerText);
             content.classList.add('clicked');
-            resultScore.innerText = ++score;
+
+            if(bombs.includes(i + 1)){
+                console.log('Hai perso! Hai totalizzato ' + score + ' punti');
+                content.classList.add('bomb');
+            }
+            else{
+                content.classList.add('safe');
+                resultScore.innerText = ++score;
+            }
 
         })
 
